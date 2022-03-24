@@ -46,29 +46,69 @@ class _Page_State extends State<Page_> {
               child: Column(
             children: [
               _voltar(),
-              const Padding(padding: EdgeInsets.only(top: 22)),
-              _CardImage(query),
+              const Padding(padding: EdgeInsets.only(top: 18)),
+              _cardImage(query),
               const Padding(padding: EdgeInsets.only(top: 12)),
-              SizedBox(
-                width: query.size.width,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(padding: EdgeInsets.only(left: 22)),
-                    Text(
-                      'Mariana Clubes',
-                      style: GoogleFonts.openSans(
-                        textStyle: const TextStyle(color: Colors.black),
-                        fontSize: 27,
-                        fontWeight: FontWeight.w700,
-                        //fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _titleEvent(query),
+              const Padding(padding: EdgeInsets.only(top: 13)),
+              _descriptionEvent(query),
+              const Padding(padding: EdgeInsets.only(top: 15)),
+              _localeTitle(query),
+              const Padding(padding: EdgeInsets.only(top: 13)),
+              _cardMap(query),
             ],
           )),
+        ],
+      ),
+    );
+  }
+
+  _descriptionEvent(MediaQueryData query) {
+    return SizedBox(
+      width: query.size.width,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(padding: EdgeInsets.only(left: 22)),
+                Container(
+                  width: query.size.width - 32,
+                  child: Text(
+                    'O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500',
+                    style: GoogleFonts.lato(
+                      textStyle: const TextStyle(color: Colors.black),
+                      fontSize: 18,
+
+                      //fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _titleEvent(MediaQueryData query) {
+    return SizedBox(
+      width: query.size.width,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(padding: EdgeInsets.only(left: 22)),
+          Text(
+            'Mariana Clubes',
+            style: GoogleFonts.openSans(
+              textStyle: const TextStyle(color: Colors.black),
+              fontSize: 27,
+              fontWeight: FontWeight.w700,
+              //fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );
@@ -79,22 +119,59 @@ class _Page_State extends State<Page_> {
       IconButton(
         icon: const Icon(Icons.arrow_back),
         color: Colors.black,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, "/");
+        },
       )
     ]);
   }
 
-  _CardImage(MediaQueryData query) {
+  _localeTitle(MediaQueryData query) {
+    return SizedBox(
+      width: query.size.width,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(padding: EdgeInsets.only(left: 22)),
+          Text(
+            'Endereço',
+            style: GoogleFonts.openSans(
+              textStyle: const TextStyle(color: Colors.black),
+              fontSize: 27,
+              fontWeight: FontWeight.w700,
+              //fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _cardMap(MediaQueryData query) {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0.9),
       ),
       child: SizedBox(
-        height: 200,
+        height: 150,
         width: query.size.width - 22,
-        child: Image.asset('img/amigos.png'),
+        child: Image.asset('img/map.gif'),
       ),
     );
   }
+}
+
+_cardImage(MediaQueryData query) {
+  return Card(
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(0.9),
+    ),
+    child: SizedBox(
+      height: 200,
+      width: query.size.width - 22,
+      child: Image.asset('img/amigos.png'),
+    ),
+  );
 }
