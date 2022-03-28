@@ -28,7 +28,7 @@ dependencies {
   // Import the Firebase BoM
   implementation platform('com.google.firebase:firebase-bom:29.2.1')
 
-
+  implementation 'androidx.multidex:multidex: 2.0.1'
 
   // Add the dependency for the Firebase SDK for Google Analytics
   // When using the BoM, don't specify versions in Firebase dependencies
@@ -42,20 +42,22 @@ dependencies {
 
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 31
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.proximorole"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 19
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {

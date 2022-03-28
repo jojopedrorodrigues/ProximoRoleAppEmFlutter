@@ -1,7 +1,6 @@
-import 'dart:math';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:proximorole/main.dart';
+
 import 'package:flutter_share/flutter_share.dart';
 
 class Page_ extends StatefulWidget {
@@ -19,6 +18,7 @@ class Page_ extends StatefulWidget {
   _Page_State createState() => _Page_State();
 }
 
+// ignore: camel_case_types
 class _Page_State extends State<Page_> {
   @override
   void initState() {
@@ -56,6 +56,8 @@ class _Page_State extends State<Page_> {
               _localeTitle(query),
               const Padding(padding: EdgeInsets.only(top: 13)),
               _cardMap(query),
+              _localizacaoAtual(query),
+              _buttonAtualizar(query, context),
             ],
           )),
         ],
@@ -73,7 +75,7 @@ class _Page_State extends State<Page_> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(padding: EdgeInsets.only(left: 22)),
-                Container(
+                SizedBox(
                   width: query.size.width - 32,
                   child: Text(
                     'O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500',
@@ -156,10 +158,157 @@ class _Page_State extends State<Page_> {
       child: SizedBox(
         height: 150,
         width: query.size.width - 22,
-        child: Image.asset('img/map.gif'),
+        child: Stack(children: [
+          SizedBox.expand(
+            child: Opacity(
+              opacity: 0.5,
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: SizedBox(
+                  width: query.size.width - 22,
+                  child: Image.asset('img/locate.jpg'),
+                ),
+              ),
+            ),
+          ),
+          SizedBox.expand(
+              child: Opacity(
+            opacity: 0.9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Center(
+                  child: Row(
+                    children: [
+                      _iconMaps(),
+                      _iconWaze(),
+                      _iconZap(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )),
+        ]),
       ),
     );
   }
+}
+
+_localizacaoAtual(MediaQueryData query) {
+  return SizedBox(
+    width: query.size.width - 22,
+    child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Text(
+        'Esta no evento?: ',
+        style: GoogleFonts.openSans(
+          textStyle: const TextStyle(color: Colors.black),
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          //fontStyle: FontStyle.italic,
+        ),
+      ),
+      const Padding(padding: EdgeInsets.only(left: 8)),
+      SizedBox(
+        width: query.size.width - 124 - 44 - 3,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.black, // background
+            onPrimary: Colors.white, // foreground
+          ),
+          onPressed: () {}, //_UpdateScreen(),
+          child: const Text(
+            'Localizacao atual',
+            style: TextStyle(color: Colors.white, fontSize: 17),
+          ),
+        ),
+      ),
+    ]),
+  );
+}
+
+_buttonAtualizar(MediaQueryData query, BuildContext context) {
+  return Expanded(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Row(children: [
+          Center(
+            child: SizedBox(
+              width: query.size.width,
+              height: 42,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black, // background
+                  onPrimary: Colors.white, // foreground
+                ),
+                onPressed: () async {}, //_UpdateScreen(),
+                child: const Text(
+                  'Hmmm... Trocar o Rolë',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
+            ),
+          ),
+        ]),
+      ],
+    ),
+  );
+}
+
+_iconZap() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 22),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            child: SizedBox(
+                width: 30, height: 30, child: Image.asset('img/whatsapp.png')),
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+_iconWaze() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 22),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            child: SizedBox(
+                width: 30, height: 30, child: Image.asset('img/waze.png')),
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+_iconMaps() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 22),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            child: SizedBox(
+                width: 30, height: 30, child: Image.asset('img/maps.png')),
+          ),
+        )
+      ],
+    ),
+  );
 }
 
 _cardImage(MediaQueryData query) {

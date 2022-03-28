@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:proximorole/adm_eventos/login_screen.dart';
 import 'package:video_player/video_player.dart';
 
 import 'page_role/page.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const Home(),
         '/segundo': (context) => Page_(role: role),
+        '/admlogin': (context) => LoginAdm(),
       },
       theme: ThemeData(
         primarySwatch: Colors.red,
@@ -60,7 +62,7 @@ class _HomeState extends State<Home> {
       setState(() {});
     });
 
-    _controller.setLooping(true);
+    _controller.setLooping(false);
     _controller.play();
     if (_contador == 0) {
       setState(() {
@@ -172,7 +174,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          _iconsInicio(),
+          _iconsInicio(context),
           inicioLayout(query, tipo),
           const Padding(padding: EdgeInsets.only(top: 25)),
           _buttonAtualizar(query, _UpdateScreen, context)
@@ -182,7 +184,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-_iconsInicio() {
+_iconsInicio(BuildContext context) {
   return Row(
     children: [
       Expanded(
@@ -191,7 +193,9 @@ _iconsInicio() {
           //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/admlogin');
+                },
                 icon: const Icon(
                   Icons.horizontal_split_outlined,
                   color: Colors.white,

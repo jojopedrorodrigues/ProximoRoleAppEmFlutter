@@ -48,6 +48,10 @@ dev_dependencies:
   google_fonts: ^2.3.1
   flutter_share: ^2.0.0
   video_player: ^2.3.0
+  firebase_auth: ^3.3.11
+  google_sign_in: ^5.2.4
+  firebase_core: ^1.0.1
+
   
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -63,7 +67,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - img/rolelogo.png
-     - img/animal.png
+     
      - img/amigos.png
      - img/familia.png
      - img/namoro.png
@@ -73,8 +77,7 @@ flutter:
      - img/senhora.gif
      - img/arrow.png
      - img/evento.png
-     - img/amigosr.png
-     - img/animalp.png
+     
      - img/familiap.png
      - img/namorop.png
      - img/show.mp4
@@ -84,6 +87,14 @@ flutter:
      - img/namoro.mp4
      - img/amigos.mp4
      - img/map.gif
+     - img/locate.jpg
+     - img/maps.png
+     - img/waze.png
+     - img/whatsapp.png
+     - img/adm1.mp4
+
+
+
 
      
      
