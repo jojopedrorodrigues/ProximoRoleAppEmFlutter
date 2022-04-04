@@ -6,11 +6,32 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Authentication {
   static Future<FirebaseApp> initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    Future<User?> signInWithGoogle({required BuildContext context}) async {
-      FirebaseAuth auth = FirebaseAuth.instance;
-      User? user;
+    FirebaseApp firebaseApp = await Firebase.initializeApp(
+        options: const FirebaseOptions(
+      apiKey: "proximorole-bcf48",
+      appId: "1:374956832297:android:e67031f46b079ac842ce38",
+      messagingSenderId: "",
+      projectId: "37495683229",
+    ));
+    return firebaseApp;
+  }
 
+  static Future<User?> signInWithGoogle({required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    if (kIsWeb) {
+      GoogleAuthProvider authProvider = GoogleAuthProvider();
+
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithPopup(authProvider);
+
+        user = userCredential.user;
+      } catch (e) {
+        print(e);
+      }
+    } else {
       final GoogleSignIn googleSignIn = GoogleSignIn();
 
       final GoogleSignInAccount? googleSignInAccount =
@@ -32,46 +53,44 @@ class Authentication {
           user = userCredential.user;
         } on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
-            // handle the error here
+            // ...
           } else if (e.code == 'invalid-credential') {
-            // handle the error here
+            // ...
           }
         } catch (e) {
-          // handle the error here
+          // ...
         }
       }
-
-      return user;
     }
 
-    SnackBar customSnackBar({required String content}) {
-      return SnackBar(
-        backgroundColor: Colors.black,
-        content: Text(
-          content,
-          style: TextStyle(color: Colors.redAccent, letterSpacing: 0.5),
+    return user;
+  }
+
+  SnackBar customSnackBar({required String content}) {
+    return SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(
+        content,
+        style: TextStyle(color: Colors.redAccent, letterSpacing: 0.5),
+      ),
+    );
+  }
+
+  // TODO: Add auto login logic
+  Future<void> signOut({required BuildContext context}) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    try {
+      if (!kIsWeb) {
+        await googleSignIn.signOut();
+      }
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackBar(
+          content: 'Deslogando...',
         ),
       );
     }
-
-    // TODO: Add auto login logic
-    Future<void> signOut({required BuildContext context}) async {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-
-      try {
-        if (!kIsWeb) {
-          await googleSignIn.signOut();
-        }
-        await FirebaseAuth.instance.signOut();
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          customSnackBar(
-            content: 'Deslogando...',
-          ),
-        );
-      }
-    }
-
-    return firebaseApp;
   }
 }

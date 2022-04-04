@@ -1,5 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import 'package:flutter_share/flutter_share.dart';
 
@@ -20,8 +21,16 @@ class Page_ extends StatefulWidget {
 
 // ignore: camel_case_types
 class _Page_State extends State<Page_> {
+  late VideoPlayerController _controller;
   @override
   void initState() {
+    _controller = VideoPlayerController.asset('img/map.mp4');
+    _controller.initialize().then((_) {
+      setState(() {});
+    });
+    //_controller.initialize();
+    _controller.setLooping(true);
+    _controller.play();
     super.initState();
   }
 
@@ -46,7 +55,7 @@ class _Page_State extends State<Page_> {
               child: Column(
             children: [
               _voltar(),
-              const Padding(padding: EdgeInsets.only(top: 18)),
+              const Padding(padding: EdgeInsets.only(top: 13)),
               _cardImage(query),
               const Padding(padding: EdgeInsets.only(top: 12)),
               _titleEvent(query),
@@ -56,6 +65,7 @@ class _Page_State extends State<Page_> {
               _localeTitle(query),
               const Padding(padding: EdgeInsets.only(top: 13)),
               _cardMap(query),
+              const Padding(padding: EdgeInsets.only(top: 13)),
               _localizacaoAtual(query),
               _buttonAtualizar(query, context),
             ],
@@ -106,7 +116,7 @@ class _Page_State extends State<Page_> {
             'Mariana Clubes',
             style: GoogleFonts.openSans(
               textStyle: const TextStyle(color: Colors.black),
-              fontSize: 27,
+              fontSize: 26,
               fontWeight: FontWeight.w700,
               //fontStyle: FontStyle.italic,
             ),
@@ -153,20 +163,21 @@ class _Page_State extends State<Page_> {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.9),
+        borderRadius: BorderRadius.circular(3.9),
       ),
       child: SizedBox(
-        height: 150,
+        height: 120,
         width: query.size.width - 22,
         child: Stack(children: [
           SizedBox.expand(
             child: Opacity(
-              opacity: 0.5,
+              opacity: 0.8,
               child: FittedBox(
                 fit: BoxFit.fill,
                 child: SizedBox(
-                  width: query.size.width - 22,
-                  child: Image.asset('img/locate.jpg'),
+                  width: _controller.value.size.width,
+                  height: _controller.value.size.height,
+                  child: VideoPlayer(_controller),
                 ),
               ),
             ),
@@ -201,7 +212,7 @@ _localizacaoAtual(MediaQueryData query) {
     width: query.size.width - 22,
     child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       Text(
-        'Esta no evento?: ',
+        'Está no evento? ',
         style: GoogleFonts.openSans(
           textStyle: const TextStyle(color: Colors.black),
           fontSize: 18,
@@ -245,7 +256,7 @@ _buttonAtualizar(MediaQueryData query, BuildContext context) {
                 ),
                 onPressed: () async {}, //_UpdateScreen(),
                 child: const Text(
-                  'Hmmm... Trocar o Rolë',
+                  'Hmmm... Trocar o Rolê',
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
               ),
@@ -318,7 +329,7 @@ _cardImage(MediaQueryData query) {
       borderRadius: BorderRadius.circular(0.9),
     ),
     child: SizedBox(
-      height: 200,
+      height: 155,
       width: query.size.width - 22,
       child: Image.asset('img/amigos.png'),
     ),

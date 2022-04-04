@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
     _controller.initialize().then((_) {
       setState(() {});
     });
-
+    //_controller.initialize();
     _controller.setLooping(false);
     _controller.play();
     if (_contador == 0) {
@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
         _controller.initialize().then((_) {
           setState(() {});
         });
-
+        //_controller.initialize();
         _controller.setLooping(false);
         _controller.play();
       });
@@ -101,7 +101,7 @@ class _HomeState extends State<Home> {
         _controller.initialize().then((_) {
           setState(() {});
         });
-
+        //_controller.initialize();
         _controller.setLooping(false);
         _controller.play();
       });
@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
         _controller.initialize().then((_) {
           setState(() {});
         });
-
+        //_controller.initialize();
         _controller.setLooping(false);
         _controller.play();
       });
@@ -136,7 +136,7 @@ class _HomeState extends State<Home> {
         _controller.initialize().then((_) {
           setState(() {});
         });
-
+        _controller.initialize();
         _controller.setLooping(false);
         _controller.play();
       });
